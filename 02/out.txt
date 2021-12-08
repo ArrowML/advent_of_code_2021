@@ -1,0 +1,3 @@
+depth:  724
+distance:  1911
+multiple:  1383564
