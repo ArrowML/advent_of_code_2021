@@ -1,4 +1,4 @@
-input_file = open("input_small.txt","r")
+input_file = open("input.txt","r")
 output_file = open("out1.txt", "w")
 
 def parseInput(file):
@@ -38,33 +38,25 @@ def compareAdjacents(values):
         if value[0] < low[0]:
             low = value
     return low
-
-def updateLows(lows, current):
-    if len(lows) == 0:
-        lows.append(current)
-        return
-    for idx, low in enumerate(lows):
-        if current == low:
-            return
-        else:
-            if sameLocation(current, low):
-                if current[0] < low[0]:
-                    lows[idx] = current
-            else:
-                lows.append(current)    
-
-def sameLocation(current, low):
-    if current[1] > low[1] + 1 & current[2] > low[2] + 1:
-        return True   
-    return False
-
-def getAdjacentLows(lows):
-adjacent_lows = []
-for idx, low in enumerate(lows):
-    if 
-
+        
 
 input = parseInput(input_file)
+
+def getLows(low_list):
+    lows = []
+    for low in low_list:
+        values = getAdjacents(low[1], low[2], input)
+        if len(values) > 1: 
+            low = compareAdjacents(values)
+            if low not in lows:
+                lows.append(low)
+    return lows 
+
+def getSum(low_list):
+    sum = 0;
+    for low in low_list:
+        sum += low[0] + 1
+    return sum               
 
 lows = []
 for y in range(input[1]['y']):
@@ -75,12 +67,11 @@ for y in range(input[1]['y']):
             lows.append(low)
 
 
-sorted = getAdjacentLows(lows)
+# need to improve this recursive function? works for now
+for i in range(10):
+    lows = getLows(lows)
+    getLows(lows)
 
-print(sorted);
+risk = getSum(lows)
+print(risk)
 
-# 2199943210
-# 3987894921
-# 9856789892
-# 8767896789
-# 9899965678
